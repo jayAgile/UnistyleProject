@@ -5,26 +5,13 @@
  * @format
  */
 
-import type {MutableRefObject, PropsWithChildren} from 'react';
-import React, {useEffect, useState} from 'react';
-import {
-  Button,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  Switch,
-  Text,
-  View,
-} from 'react-native';
+import type {PropsWithChildren} from 'react';
+import React, {useState} from 'react';
+import {SafeAreaView, StatusBar, Switch, Text, View} from 'react-native';
 import {StyleSheet, UnistylesRuntime} from 'react-native-unistyles';
 
-import {
-  DebugInstructions,
-  Header,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import {KeyboardAvoidingViewInput} from './Input';
 import {AppLoader, ILoader} from '../AppLoader';
+import {ImageBottomShadow} from '../ImageBottomShadow';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -75,11 +62,11 @@ export const ThemeDemo = (): React.JSX.Element => {
   //   loaderRef.current?.hideLoader();
   // }, []);
 
-  const showLoaderHandler = async () => {
-    loaderRef.current?.showLoader();
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    loaderRef.current?.hideLoader();
-  };
+  // const showLoaderHandler = async () => {
+  //   loaderRef.current?.showLoader();
+  //   await new Promise(resolve => setTimeout(resolve, 1000));
+  //   loaderRef.current?.hideLoader();
+  // };
 
   return (
     <SafeAreaView style={[backgroundStyle, {flex: 1}]}>
@@ -88,7 +75,11 @@ export const ThemeDemo = (): React.JSX.Element => {
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <Switch onValueChange={onSwitchChange} value={myTheme} />
-      <ScrollView
+      <View style={styles.container}>
+        <ImageBottomShadow />
+      </View>
+
+      {/* <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
         <Header />
@@ -115,7 +106,7 @@ export const ThemeDemo = (): React.JSX.Element => {
             Read the docs to discover what to do next:
           </Section>
         </View>
-      </ScrollView>
+      </ScrollView> */}
       <AppLoader ref={loaderRef} />
     </SafeAreaView>
   );
@@ -128,10 +119,23 @@ const styles = StyleSheet.create(theme => ({
     paddingHorizontal: 24,
     backgroundColor: theme.colors.secondary,
   },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   sectionTitle: {
     fontSize: 24,
     fontWeight: '600',
     color: theme.colors.fontColor,
+    boxShadow: '5 20 10 0 rgba(255, 0, 0, 0.5)',
+    // boxShadow:{
+    //   offsetX: 5,
+    //   offsetY: 5,
+    //   blurRadius: 5,
+    //   spreadDistance: 0,
+    //   color: 'rgba(255, 0, 0, 0.5)',
+    // }
   },
   sectionDescription: {
     marginTop: 8,
